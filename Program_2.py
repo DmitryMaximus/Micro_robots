@@ -10,7 +10,11 @@ root.update()
 file_path = askopenfilename(parent=root, title='Пожалуйста выберите файл с данными')
 cols_count = askinteger(parent=root,title='Ввод данных', prompt='Введите количество столбцов в таблице')
 root.destroy()
-file = open(file_path, mode="r", encoding="utf-8").read()
+try:
+    file = open(file_path, mode="r", encoding="ANSI").read()
+except Exception:
+    print('Возникла ошибка при чтении файла, проверьте, что кодировка файла = ANSI')
+    input()
 
 try:
     df = pd.DataFrame([], columns=[str(i) for i in range(1, cols_count + 1)])

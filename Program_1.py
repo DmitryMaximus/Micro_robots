@@ -8,8 +8,11 @@ root.withdraw()
 root.update()
 file_path = askopenfilename(parent=root, title='Пожалуйста выберите файл с данными')
 root.destroy()
-file = open(file_path, mode="r", encoding="utf-8").read()
-
+try:
+    file = open(file_path, mode="r", encoding="ANSI").read()
+except Exception:
+    print('Возникла ошибка при чтении файла, проверьте, что кодировка файла = ANSI')
+    input()
 
 def find_element(elem, delimiter_pos):
     cols_list = ["\t", ". ИНН ", ". ОГРН ", ". Местонахождение: ", ". Основание: "]
