@@ -29,12 +29,13 @@ def find_element(elem, delimiter_pos):
 
 
 df = pd.DataFrame([], columns=["Заголовок", "ФИО", "ИНН", "ОГРН", "МЕСТОНАХОЖДЕНИЕ", "ОСНОВАНИЕ"])
+file_lines = list(filter(None,file.splitlines()))
 
 try:
     iterator = 0
-    for line in file.splitlines():
-        if "\t" in line:
-            df.at[iterator, "ФИО"] = find_element(line, 0)
+    for line in file_lines:
+        if line[0] in [str(x) for x in range(0,10)]:
+            df.at[iterator, "ФИО"] = line.split('.')[1]
             df.at[iterator, "ИНН"] = find_element(line, 1)
             df.at[iterator, "ОГРН"] = find_element(line, 2)
             df.at[iterator, "МЕСТОНАХОЖДЕНИЕ"] = find_element(line, 3)
